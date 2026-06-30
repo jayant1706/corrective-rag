@@ -30,5 +30,5 @@ ragas
 datasets
 
 pandas
-
+langchain-chroma
 numpy
