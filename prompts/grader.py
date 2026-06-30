@@ -1,25 +1,27 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-GRADE_PROMPT = ChatPromptTemplate.from_template(
-"""
-You are a document relevance grader.
+GRADE_PROMPT = ChatPromptTemplate.from_template("""
+You are an expert retrieval evaluator.
+
+Evaluate whether the retrieved document is relevant for answering the user's question.
 
 Question:
-
 {question}
 
 Document:
-
 {document}
 
-Is this document relevant?
+Give a relevance score from 1 to 10.
 
-Answer ONLY:
+Scoring Guide:
 
-yes
+10 -> Directly answers the question.
 
-or
+8-9 -> Highly relevant.
 
-no
-"""
-)
+6-7 -> Somewhat relevant.
+
+3-5 -> Weakly relevant.
+
+1-2 -> Completely irrelevant.
+""")

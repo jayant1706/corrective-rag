@@ -12,3 +12,5 @@ class GraphState(TypedDict):
     filtered_documents: List[Document]
 
     generation: str
+
+    rewrite_count: int
