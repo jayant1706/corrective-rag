@@ -15,7 +15,11 @@ workflow = StateGraph(GraphState)
 workflow.add_node("retrieve", retrieve)
 workflow.add_node("grade", grade_documents)
 workflow.add_node("rewrite", rewrite_query)
+from nodes.web_search_node import web_search
+
+workflow.add_node("web", web_search)
 workflow.add_node("generate", generate_answer)
+workflow.add_edge("web", "generate")
 
 workflow.set_entry_point("retrieve")
 
@@ -27,6 +31,7 @@ workflow.add_conditional_edges(
     {
         "generate": "generate",
         "rewrite": "rewrite",
+        "web": "web",
     },
 )
 

@@ -18,7 +18,11 @@ def retrieve(state):
 
     print("\nRetrieving Documents...\n")
 
-    question = state["question"]
+    question = (
+        state["rewritten_question"]
+        if state["rewritten_question"]
+        else state["question"]
+    )
 
     documents = retriever.invoke(question)
 

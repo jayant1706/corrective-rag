@@ -23,7 +23,6 @@ def rewrite_query(state):
     print("Rewritten:", rewritten)
 
     return {
-        "question": rewritten,
         "rewritten_question": rewritten,
         "rewrite_count": state["rewrite_count"] + 1,
     }

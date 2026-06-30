@@ -11,12 +11,13 @@ while True:
         break
 
     state = {
-        "question": question,
-        "rewritten_question": "",
-        "documents": [],
-        "filtered_documents": [],
-        "generation": "",
-        "rewrite_count": 0,
+    "question": question,
+    "rewritten_question": "",
+    "documents": [],
+    "filtered_documents": [],
+    "web_context": "",
+    "generation": "",
+    "rewrite_count": 0,
     }
 
     start = time.perf_counter()

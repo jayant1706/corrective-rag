@@ -7,27 +7,39 @@ def generate_answer(state):
     print("\nGenerating Answer...\n")
 
     docs = state["filtered_documents"]
-
     question = state["question"]
 
     context = ""
 
-    for i, doc in enumerate(docs, start=1):
-
-        context += f"""
+    if docs:
+        for i, doc in enumerate(docs, start=1):
+            context += f"""
 Document {i}
 
 Source:
 {doc.metadata.get("filename")}
 
 Page:
-{doc.metadata.get("page","N/A")}
+{doc.metadata.get("page", "N/A")}
 
 Content:
 {doc.page_content}
 
 ------------------------
 """
+
+    if state["web_context"]:
+        context += """
+
+====================
+
+WEB SEARCH RESULTS
+
+====================
+
+"""
+
+        context += state["web_context"]
 
     prompt = ANSWER_PROMPT.invoke(
         {
