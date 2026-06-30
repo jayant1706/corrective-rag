@@ -1,0 +1,27 @@
+from ingestion.embedder import get_embedding_model
+from ingestion.vectorstore import load_vectorstore
+
+from config import TOP_K
+
+embeddings = get_embedding_model()
+
+db = load_vectorstore(embeddings)
+
+retriever = db.as_retriever(
+    search_kwargs={
+        "k": TOP_K
+    }
+)
+
+
+def retrieve(state):
+
+    print("\nRetrieving Documents...\n")
+
+    question = state["question"]
+
+    documents = retriever.invoke(question)
+
+    return {
+        "documents": documents
+    }
