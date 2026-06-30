@@ -51,5 +51,7 @@ WEB SEARCH RESULTS
     response = llm.invoke(prompt)
 
     return {
-        "generation": response.content
+        "generation": response.content,
+        "generation_attempts":
+        state["generation_attempts"]+1
     }

@@ -14,6 +14,8 @@ while True:
     "question": question,
     "rewritten_question": "",
     "documents": [],
+    "grounded":False,
+    "generation_attempts":0,  
     "filtered_documents": [],
     "web_context": "",
     "generation": "",

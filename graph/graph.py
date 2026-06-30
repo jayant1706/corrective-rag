@@ -8,6 +8,7 @@ from nodes.retrieve_node import retrieve
 from nodes.grader_node import grade_documents
 from nodes.rewrite_node import rewrite_query
 from nodes.generate_node import generate_answer
+from nodes.hallucination_node import check_hallucination
 
 
 workflow = StateGraph(GraphState)
@@ -20,7 +21,7 @@ from nodes.web_search_node import web_search
 workflow.add_node("web", web_search)
 workflow.add_node("generate", generate_answer)
 workflow.add_edge("web", "generate")
-
+workflow.add_node("hallucination",check_hallucination)
 workflow.set_entry_point("retrieve")
 
 workflow.add_edge("retrieve", "grade")
