@@ -33,7 +33,10 @@ Content:
 
 -------------------------
 """
+        
+    trace = state.get("execution_trace", [])
 
+    trace.append("Web Search")
     return {
         "web_context": context
     }

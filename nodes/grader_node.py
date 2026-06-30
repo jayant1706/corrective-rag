@@ -34,7 +34,14 @@ def grade_documents(state):
             filtered_docs.append(doc)
 
     print(f"\nRelevant Documents: {len(filtered_docs)}")
+    trace = state.get("execution_trace", [])
+
+    trace.append("Grade")
 
     return {
-        "filtered_documents": filtered_docs
+
+        "filtered_documents": filtered_docs,
+
+        "execution_trace": trace
+
     }

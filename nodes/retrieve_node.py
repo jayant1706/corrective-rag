@@ -26,6 +26,14 @@ def retrieve(state):
 
     documents = retriever.invoke(question)
 
+    trace = state.get("execution_trace", [])
+
+    trace.append("Retrieve")
+
     return {
-        "documents": documents
+
+        "documents": documents,
+
+        "execution_trace": trace
+
     }

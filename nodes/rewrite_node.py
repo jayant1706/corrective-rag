@@ -18,7 +18,8 @@ def rewrite_query(state):
     )
 
     rewritten = llm.invoke(prompt).content.strip()
-
+    trace = state.get("execution_trace", [])
+    trace.append("Rewrite")
     print("Original :", question)
     print("Rewritten:", rewritten)
 

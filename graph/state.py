@@ -3,7 +3,6 @@ from langchain_core.documents import Document
 
 
 class GraphState(TypedDict):
-
     # User input
     question: str
     rewritten_question: str
@@ -24,3 +23,6 @@ class GraphState(TypedDict):
     # Retry counters
     rewrite_count: int
     generation_attempts: int
+
+    # Execution trace
+    execution_trace: list

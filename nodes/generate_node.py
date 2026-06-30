@@ -49,7 +49,8 @@ WEB SEARCH RESULTS
     )
 
     response = llm.invoke(prompt)
-
+    trace = state.get("execution_trace", [])
+    trace.append("Generate")
     return {
         "generation": response.content,
         "generation_attempts":

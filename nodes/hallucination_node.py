@@ -19,7 +19,8 @@ def check_hallucination(state):
     print("\n========== GROUNDING CHECK ==========")
     print("Grounded :", result.grounded)
     print("Reason   :", result.explanation)
-
+    trace = state.get("execution_trace", [])
+    trace.append("Grounding Check")
     return {
         "grounded": result.grounded,
         "grounding_reason": result.explanation,
