@@ -1,15 +1,19 @@
-def decide_to_generate(state):
+MAX_REWRITES = 2
 
-    print("\nChecking document quality...\n")
 
-    filtered_docs = state["filtered_documents"]
+def decide_next(state):
 
-    if len(filtered_docs) >= 2:
+    relevant = len(state["filtered_documents"])
 
-        print("Enough relevant documents.\n")
+    rewrites = state["rewrite_count"]
 
+    print(f"\nRelevant Docs : {relevant}")
+    print(f"Rewrite Count : {rewrites}")
+
+    if relevant >= 2:
         return "generate"
 
-    print("Not enough relevant documents.\n")
+    if rewrites >= MAX_REWRITES:
+        return "generate"
 
     return "rewrite"

@@ -1,8 +1,7 @@
 import time
 
-from chains.rag_chain import RAGPipeline
+from graph.graph import graph
 
-rag = RAGPipeline()
 
 while True:
 
@@ -11,21 +10,22 @@ while True:
     if question.lower() == "exit":
         break
 
+    state = {
+        "question": question,
+        "rewritten_question": "",
+        "documents": [],
+        "filtered_documents": [],
+        "generation": "",
+        "rewrite_count": 0,
+    }
+
     start = time.perf_counter()
 
-    answer, docs = rag.ask(question)
+    result = graph.invoke(state)
 
     end = time.perf_counter()
 
     print("\nAnswer\n")
-    print(answer)
+    print(result["generation"])
 
-    print("\nSources\n")
-
-    for doc in docs:
-        print(
-            f"{doc.metadata.get('filename')} "
-            f"(page {doc.metadata.get('page', 'N/A')})"
-        )
-
-    print(f"\nResponse Time: {(end - start):.2f} seconds")
+    print(f"\nResponse Time : {end-start:.2f} sec")
