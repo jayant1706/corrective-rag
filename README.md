@@ -1,181 +1,250 @@
-# 🤖 Corrective RAG with LangGraph
+# 🤖 Corrective RAG Assistant
 
-An advanced **Corrective Retrieval-Augmented Generation (CRAG)** system built using **LangGraph**, **LangChain**, **ChromaDB**, **Groq LLMs**, and **Streamlit**. The application improves retrieval quality by grading retrieved documents, rewriting ambiguous queries, performing web search fallback when necessary, and validating generated answers using a hallucination detection module.
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.138-green.svg)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Frontend-FF4B4B.svg)](https://streamlit.io/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Agentic%20Workflow-purple.svg)](https://www.langchain.com/langgraph)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Backend-Render-46E3B7.svg)](https://render.com/)
 
----
+An intelligent **Corrective Retrieval-Augmented Generation (CRAG)** system that enhances traditional RAG pipelines by evaluating retrieved documents, rewriting ambiguous queries, searching the web when necessary, and verifying generated responses before returning them to the user.
 
-## 🚀 Features
-
-- 📄 Multi-format document ingestion
-  - PDF
-  - Markdown (.md)
-  - Text (.txt)
-
-- 🗂️ ChromaDB Vector Store
-
-- 🔍 Semantic Retrieval using HuggingFace Embeddings
-
-- 🤖 LangGraph-based Agentic Workflow
-
-- 📊 Document Relevance Grading using Structured Outputs (Pydantic)
-
-- ✍️ Automatic Query Rewriting
-
-- 🌐 Tavily Web Search Fallback
-
-- 🛡️ Hallucination Detection (Grounding Verification)
-
-- 🔁 Self-Correcting Regeneration
-
-- 💬 Streamlit Frontend
-
-- 📈 Execution Trace and Performance Metrics
+The project is built using **LangGraph**, **FastAPI**, **Streamlit**, **ChromaDB**, **Groq LLM**, and **Tavily Search**.
 
 ---
 
-# 🏗️ Architecture
+# 🌐 Live Demo
 
+## 🖥️ Frontend
+
+https://corrective-rag-hzkxrqzsxzmkbntenmk3ai.streamlit.app/
+
+## 🚀 Backend API
+
+https://corrective-rag-5x8d.onrender.com
+
+## 📖 Swagger Documentation
+
+https://corrective-rag-5x8d.onrender.com/docs
+
+---
+
+# ✨ Features
+
+- 🔍 Retrieval-Augmented Generation (RAG)
+- 🔄 Intelligent Query Rewriting
+- 📄 LLM-based Document Relevance Grading
+- 🌐 Automatic Web Search Fallback using Tavily
+- 🧠 Hallucination Detection
+- 🔁 Answer Regeneration when responses are not grounded
+- ⚡ Agentic Workflow using LangGraph
+- 📚 ChromaDB Vector Database
+- 🚀 FastAPI REST Backend
+- 🖥️ Streamlit Frontend
+- 🐳 Dockerized Deployment
+- ☁️ Cloud Deployment on Render & Streamlit Community Cloud
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    User
+                      │
+                      ▼
+            Streamlit Frontend
+                      │
+            POST Request (/chat)
+                      │
+                      ▼
+             FastAPI Backend
+                      │
+                      ▼
+             LangGraph Workflow
+                      │
+     ┌────────────────┼────────────────┐
+     │                │                │
+     ▼                ▼                ▼
+Retrieve Docs   Rewrite Query   Tavily Search
+     │                │
+     └──────────┬─────┘
+                ▼
+      Document Relevance Grading
+                │
+         Relevant Documents
+                │
+                ▼
+        Answer Generation (Groq)
+                │
+                ▼
+     Hallucination Detection
+         │              │
+         │              │
+     Grounded      Not Grounded
+         │              │
+         ▼              ▼
+ Return Response   Regenerate Answer
 ```
-                    User Question
-                          │
-                          ▼
-                   Retrieve Documents
-                          │
-                          ▼
-                  Grade Retrieved Docs
-                          │
-          ┌───────────────┴───────────────┐
-          │                               │
-     Relevant                       Not Relevant
-          │                               │
-          ▼                               ▼
-     Generate Answer              Rewrite Query
-                                          │
-                                          ▼
-                                  Retrieve Again
-                                          │
-                               Max Retry Reached?
-                                  │             │
-                                 No            Yes
-                                  │             ▼
-                                  │      Web Search
-                                  │             │
-                                  └─────────────▼
-                                      Generate Answer
-                                             │
-                                             ▼
-                                  Hallucination Checker
-                                  │                 │
-                             Grounded        Not Grounded
-                                  │                 │
-                                  ▼                 ▼
-                               Return        Regenerate Answer
-```
+
+---
+
+# 🛠️ Tech Stack
+
+### Backend
+
+- FastAPI
+- LangGraph
+- LangChain
+- Groq API
+
+### Frontend
+
+- Streamlit
+
+### Vector Database
+
+- ChromaDB
+
+### Embeddings
+
+- HuggingFace Sentence Transformers
+
+### Web Search
+
+- Tavily Search API
+
+### Deployment
+
+- Docker
+- Render
+- Streamlit Community Cloud
 
 ---
 
 # 📂 Project Structure
 
-```text
+```
 corrective-rag/
 │
-├── data/
+├── api/
+│   └── main.py
+│
 ├── frontend/
 │   └── app.py
 │
 ├── graph/
-│   ├── graph.py
-│   ├── decision.py
-│   └── state.py
-│
-├── ingestion/
-│   ├── ingest.py
-│   ├── loader.py
-│   ├── splitter.py
-│   └── vectorstore.py
+│   └── graph.py
 │
 ├── nodes/
-│   ├── retrieve_node.py
-│   ├── grader_node.py
-│   ├── rewrite_node.py
-│   ├── generate_node.py
-│   ├── web_search_node.py
-│   └── hallucination_node.py
 │
-├── prompts/
+├── services/
+│
 ├── utils/
 │
-├── app.py
-├── config.py
+├── evaluation/
+│
+├── Dockerfile
 ├── requirements.txt
-└── README.md
+├── requirements-docker.txt
+├── README.md
+└── .env.example
 ```
 
 ---
 
-# ⚙️ Tech Stack
+# ⚙️ Workflow
 
-| Component | Technology |
-|-----------|------------|
-| LLM | Groq (Llama 3.3 70B) |
-| Framework | LangGraph |
-| LLM Framework | LangChain |
-| Embeddings | HuggingFace |
-| Vector Database | ChromaDB |
-| Web Search | Tavily |
-| Frontend | Streamlit |
-| Validation | Pydantic |
+The Corrective RAG pipeline follows these stages:
 
----
-
-# 🔄 Workflow
-
-1. User asks a question.
-2. Retrieve relevant chunks from ChromaDB.
-3. Grade each retrieved document using an LLM.
-4. If retrieval quality is poor:
-   - Rewrite the query.
-   - Retrieve again.
-5. If retrieval still fails:
-   - Perform a Tavily web search.
-6. Generate an answer from the available context.
-7. Verify that the answer is grounded in the retrieved context.
-8. If the answer is not grounded:
-   - Regenerate using the grounding feedback.
-9. Return the final verified response.
+1. User submits a question.
+2. The query is rewritten if necessary.
+3. Relevant documents are retrieved from ChromaDB.
+4. Retrieved documents are graded for relevance.
+5. If insufficient information is found, the system performs a Tavily web search.
+6. The LLM generates an answer using the retrieved context.
+7. A hallucination detector verifies whether the answer is grounded.
+8. If the answer is not grounded, it is regenerated.
+9. The final verified response is returned.
 
 ---
 
-# 💻 Installation
+# 📡 API Endpoints
 
-Clone the repository:
+## Home
+
+```
+GET /
+```
+
+Response
+
+```json
+{
+    "message": "Corrective RAG API Running"
+}
+```
+
+---
+
+## Chat
+
+```
+POST /chat
+```
+
+Request
+
+```json
+{
+    "question": "What is LangGraph?"
+}
+```
+
+Example Response
+
+```json
+{
+    "answer": "...",
+    "grounded": true,
+    "latency": 1.84,
+    "sources": [
+        "LangGraph.pdf"
+    ]
+}
+```
+
+---
+
+# 🚀 Running Locally
+
+## Clone Repository
 
 ```bash
-git clone https://github.com/<your-username>/corrective-rag.git
+git clone https://github.com/jayant1706/corrective-rag.git
 cd corrective-rag
 ```
 
-Create a virtual environment:
+---
+
+## Create Virtual Environment
+
+Windows
 
 ```bash
 python -m venv venv
-```
-
-Activate it:
-
-### Windows
-
-```bash
 venv\Scripts\activate
 ```
 
-### Linux / macOS
+Linux / macOS
 
 ```bash
+python3 -m venv venv
 source venv/bin/activate
 ```
 
-Install dependencies:
+---
+
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -183,7 +252,7 @@ pip install -r requirements.txt
 
 ---
 
-# 🔑 Environment Variables
+## Configure Environment Variables
 
 Create a `.env` file.
 
@@ -194,25 +263,27 @@ TAVILY_API_KEY=your_tavily_api_key
 
 ---
 
-# 📄 Index Your Documents
-
-Place your documents inside the `data/` directory and run:
+## Run Backend
 
 ```bash
-python ingestion/ingest.py
+uvicorn api.main:app --reload
+```
+
+Open:
+
+```
+http://localhost:8000
+```
+
+Swagger UI:
+
+```
+http://localhost:8000/docs
 ```
 
 ---
 
-# ▶️ Run the Application
-
-Terminal version:
-
-```bash
-python app.py
-```
-
-Streamlit version:
+## Run Frontend
 
 ```bash
 streamlit run frontend/app.py
@@ -220,39 +291,89 @@ streamlit run frontend/app.py
 
 ---
 
-# 📊 Example Features
+# 🐳 Docker
 
-- Query rewriting for ambiguous questions
-- Automatic retrieval grading
-- Web search fallback
-- Hallucination detection
-- Execution trace
-- Source document display
-- Response latency measurement
+## Build
 
----
+```bash
+docker build -t corrective-rag-api .
+```
 
-# 🌟 Future Improvements
+## Run
 
-- FastAPI backend
-- Docker support
-- Authentication
-- Conversation memory
-- Multi-user support
-- RAGAS evaluation
-- Cloud deployment
-- CI/CD pipeline
+```bash
+docker run -p 8000:8000 --env-file .env corrective-rag-api
+```
 
 ---
 
 # 📸 Screenshots
 
-Add screenshots of:
+## Streamlit Frontend
 
-- Streamlit UI
-- Execution trace
-- Source documents
-- Hallucination detection
+<img width="1917" height="866" alt="image" src="https://github.com/user-attachments/assets/d6116479-b94c-4b11-9639-f2b5fca317b9" />
+
+
+## Swagger API
+
+<img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/8acf903a-295c-4b13-8a1c-e89bc353dd15" />
+
+
+## LangGraph Workflow
+
+                 User Question
+                       │
+                       ▼
+                 Retrieve Node
+                       │
+                       ▼
+              Document Grader
+                       │
+         ┌─────────────┴─────────────┐
+         │                           │
+         ▼                           ▼
+   Documents Relevant?            No Relevant Docs
+         │                           │
+         ▼                           ▼
+    Generate Answer            Rewrite Query
+         │                           │
+         │                           ▼
+         │                    Tavily Web Search
+         │                           │
+         └───────────────┬───────────┘
+                         ▼
+                Hallucination Check
+                  │             │
+                  │             │
+            Grounded       Not Grounded
+                  │             │
+                  ▼             ▼
+           Return Answer   Regenerate Answer
+
+# 🔮 Future Improvements
+
+- Multi-PDF Support
+- Hybrid Retrieval
+- RAGAS Evaluation Dashboard
+- Conversation Memory
+- User Authentication
+- Streaming Responses
+- Source Highlighting
+- Kubernetes Deployment
+- CI/CD Pipeline
+- Monitoring & Logging
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
 
 ---
 
@@ -260,17 +381,20 @@ Add screenshots of:
 
 **Jayant Singh Patel**
 
-B.Tech Computer Science Engineering
+GitHub
 
-Interested in:
-- Generative AI
-- Retrieval-Augmented Generation (RAG)
-- AI Agents
-- Machine Learning
-- Backend Development
+https://github.com/jayant1706
+
+LinkedIn
+
+www.linkedin.com/in/jayant-singh-patel
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub. It helps others discover the project and supports future development.
 
 ---
 
-# 📜 License
+# 📄 License
 
 This project is licensed under the MIT License.
