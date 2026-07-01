@@ -1,0 +1,25 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.8.0
+torchvision==0.23.0
+torchaudio==2.8.0
+
+fastapi==0.138.2
+uvicorn==0.49.0
+streamlit==1.58.0
+
+langchain==0.3.30
+langgraph==0.6.7
+
+langchain-community
+langchain-chroma
+langchain-groq
+langchain-huggingface
+
+chromadb
+sentence-transformers
+
+pypdf
+python-dotenv
+tavily-python
+requests
