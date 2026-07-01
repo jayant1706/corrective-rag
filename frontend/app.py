@@ -1,9 +1,10 @@
 import os
 import sys
+import os
 
 API_URL = os.getenv(
     "API_URL",
-    "http://127.0.0.1:8000/chat"
+    "https://corrective-rag-5x8d.onrender.com/chat"
 )
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT_DIR)
