@@ -1,13 +1,15 @@
 from utils.llm import llm
 from prompts.rewrite import REWRITE_PROMPT
-
+from utils.logger import logger
 
 MAX_REWRITES = 2
 
 
 def rewrite_query(state):
 
-    print("\nRewriting Query...\n")
+    logger.info(
+        "Rewritting query"
+    )
 
     question = state["question"]
 
@@ -21,7 +23,9 @@ def rewrite_query(state):
     trace = state.get("execution_trace", [])
     trace.append("Rewrite")
     print("Original :", question)
-    print("Rewritten:", rewritten)
+    logger.info(
+    f"REWRITE | Query rewritten"
+    )
 
     return {
         "rewritten_question": rewritten,

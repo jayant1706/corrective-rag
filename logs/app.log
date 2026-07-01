@@ -1,0 +1,93 @@
+2026-07-01 10:48:28,788 | INFO | Corrective RAG started
+2026-07-01 10:48:34,364 | INFO | QUESTION | what is ai
+2026-07-01 10:48:34,396 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 10:48:34,634 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 10:48:34,993 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:48:35,199 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:48:35,373 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:48:35,663 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:48:35,867 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:52:07,350 | INFO | Corrective RAG started
+2026-07-01 10:59:40,677 | INFO | QUESTION | waht is ai
+2026-07-01 10:59:40,681 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 10:59:40,767 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 10:59:41,149 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:59:41,319 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:59:41,492 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:59:41,789 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 10:59:42,082 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:48,173 | INFO | Corrective RAG started
+2026-07-01 11:00:50,529 | INFO | QUESTION | what is ai\
+2026-07-01 11:00:50,532 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:00:50,619 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:00:51,038 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:51,355 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:51,551 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:51,727 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:52,067 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:52,068 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:00:52,070 | INFO | Rewritting query
+2026-07-01 11:00:52,298 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:52,299 | INFO | REWRITE | Query rewritten
+2026-07-01 11:00:52,299 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:00:52,327 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:00:52,622 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:52,808 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:52,992 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:53,185 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:53,464 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:53,465 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:00:53,466 | INFO | Rewritting query
+2026-07-01 11:00:53,640 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:53,641 | INFO | REWRITE | Query rewritten
+2026-07-01 11:00:53,641 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:00:53,656 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:00:53,979 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:54,186 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:54,476 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:54,808 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:55,126 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:00:55,128 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:00:55,128 | INFO | WEB SEARCH | Searching Tavily
+2026-07-01 11:01:00,226 | INFO | GENERATE | Generating answer
+2026-07-01 11:01:01,010 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:01:01,012 | INFO | GENERATE | Answer generated successfully
+2026-07-01 11:02:21,017 | INFO | Corrective RAG started
+2026-07-01 11:02:25,077 | INFO | QUESTION | what is ai
+2026-07-01 11:02:25,080 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:02:25,164 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:02:25,445 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:25,642 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:25,819 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:26,020 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:26,326 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:26,327 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:02:26,328 | INFO | Rewritting query
+2026-07-01 11:02:26,653 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:26,654 | INFO | REWRITE | Query rewritten
+2026-07-01 11:02:26,654 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:02:26,683 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:02:26,910 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:27,158 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:27,328 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:27,608 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:27,806 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:27,808 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:02:27,808 | INFO | Rewritting query
+2026-07-01 11:02:28,120 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:28,121 | INFO | REWRITE | Query rewritten
+2026-07-01 11:02:28,122 | INFO | RETRIEVE | Starting retrieval
+2026-07-01 11:02:28,136 | INFO | RETRIEVE | Retrieved 5 documents
+2026-07-01 11:02:28,328 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:28,635 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:28,813 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:29,005 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:29,310 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:29,312 | INFO | GRADE | Relevant documents: 0
+2026-07-01 11:02:29,312 | INFO | WEB SEARCH | Searching Tavily
+2026-07-01 11:02:33,906 | INFO | GENERATE | Generating answer
+2026-07-01 11:02:34,931 | INFO | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-01 11:02:34,932 | INFO | GENERATE | Answer generated successfully
+2026-07-01 11:02:34,933 | INFO | LATENCY | 9.86 sec
+2026-07-01 11:02:46,912 | INFO | QUESTION | exit
+2026-07-01 11:02:46,913 | INFO | REQUEST COMPLETED

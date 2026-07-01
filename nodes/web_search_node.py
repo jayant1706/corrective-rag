@@ -1,12 +1,15 @@
 from tavily import TavilyClient
 from config import TAVILY_API_KEY
+from utils.logger import logger
 
 client = TavilyClient(api_key=TAVILY_API_KEY)
 
 
 def web_search(state):
 
-    print("\n========== WEB SEARCH ==========\n")
+    logger.info(
+        "WEB SEARCH | Searching Tavily"
+    )
 
     question = state["question"]
 

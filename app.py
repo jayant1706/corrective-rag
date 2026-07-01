@@ -1,11 +1,18 @@
 import time
 
 from graph.graph import graph
+from utils.logger import logger
 
+logger.info(
+    "Corrective RAG started"
+)
 
 while True:
 
     question = input("\nAsk: ")
+    logger.info(
+        f"QUESTION | {question}"
+    )
 
     if question.lower() == "exit":
         break
@@ -25,10 +32,15 @@ while True:
     start = time.perf_counter()
 
     result = graph.invoke(state)
-
     end = time.perf_counter()
-
+    logger.info(
+        f"LATENCY | {end-start:.2f} sec"
+    )
     print("\nAnswer\n")
     print(result["generation"])
 
     print(f"\nResponse Time : {end-start:.2f} sec")
+
+logger.info(
+    "REQUEST COMPLETED"
+)

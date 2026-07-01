@@ -16,7 +16,8 @@ retriever = db.as_retriever(
 
 def retrieve(state):
 
-    print("\nRetrieving Documents...\n")
+    from utils.logger import logger
+    logger.info("RETRIEVE | Starting retrieval")
 
     question = (
         state["rewritten_question"]
@@ -25,6 +26,7 @@ def retrieve(state):
     )
 
     documents = retriever.invoke(question)
+    logger.info(f"RETRIEVE | Retrieved {len(documents)} documents")
 
     trace = state.get("execution_trace", [])
 

@@ -1,10 +1,12 @@
 from prompts.answer import ANSWER_PROMPT
 from utils.llm import llm
-
+from utils.logger import logger
 
 def generate_answer(state):
 
-    print("\nGenerating Answer...\n")
+    logger.info(
+        "GENERATE | Generating answer"
+    )
 
     docs = state["filtered_documents"]
     question = state["question"]
@@ -49,6 +51,9 @@ WEB SEARCH RESULTS
     )
 
     response = llm.invoke(prompt)
+    logger.info(
+        "GENERATE | Answer generated successfully"
+    )
     trace = state.get("execution_trace", [])
     trace.append("Generate")
     return {

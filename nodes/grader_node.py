@@ -1,7 +1,7 @@
 from prompts.grader import GRADE_PROMPT
 from utils.llm import llm
 from utils.schema import GradeDocument
-
+from utils.logger import logger
 
 structured_llm = llm.with_structured_output(GradeDocument)
 
@@ -33,7 +33,9 @@ def grade_documents(state):
         if score >= 7:
             filtered_docs.append(doc)
 
-    print(f"\nRelevant Documents: {len(filtered_docs)}")
+    logger.info(
+    f"GRADE | Relevant documents: {len(filtered_docs)}"
+    )
     trace = state.get("execution_trace", [])
 
     trace.append("Grade")
