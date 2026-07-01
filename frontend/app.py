@@ -1,6 +1,10 @@
 import os
 import sys
 
+API_URL = os.getenv(
+    "API_URL",
+    "http://127.0.0.1:8000/chat"
+)
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT_DIR)
 
@@ -28,7 +32,7 @@ if submit:
 
         try:
             response = requests.post(
-                "http://127.0.0.1:8000/chat",
+                API_URL,
                 json={"question": question},
                 timeout=120,
             )
