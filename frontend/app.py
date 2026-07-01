@@ -7,7 +7,7 @@ sys.path.insert(0, ROOT_DIR)
 import streamlit as st
 import time
 
-from graph.graph import graph
+import requests
 
 st.set_page_config(
     page_title="Corrective RAG",
@@ -22,43 +22,50 @@ question = st.text_input(
 
 submit = st.button("Ask")
 if submit:
-    state = {
-        "question": question,
-        "rewritten_question": "",
-        "documents": [],
-        "filtered_documents": [],
-        "web_context": "",
-        "generation": "",
-        "generation_context": "",
-        "rewrite_count": 0,
-        "generation_attempts": 0,
-        "grounded": False,
-        "grounding_reason": "",
-        "execution_trace": [],
-    }
-
     start = time.perf_counter()
 
     with st.spinner("Thinking..."):
-        result = graph.invoke(state)
+
+        try:
+            response = requests.post(
+                "http://127.0.0.1:8000/chat",
+                json={"question": question},
+                timeout=120,
+            )
+
+            response.raise_for_status()
+
+            result = response.json()
+
+        except requests.exceptions.ConnectionError:
+
+            st.error("FastAPI backend is not running.")
+
+            st.info("Run the backend using:")
+
+            st.code("uvicorn api.main:app --reload")
+
+            st.stop()
+
+        except Exception as e:
+
+            st.error(f"Error: {e}")
+
+            st.stop()
 
     end = time.perf_counter()
 
     # ---------------- Answer ----------------
     st.subheader("💬 Answer")
-    st.markdown(result["generation"])
+    st.markdown(result["answer"])
 
     st.divider()
 
     # ---------------- Sources ----------------
     st.subheader("📚 Sources")
 
-    for doc in result["filtered_documents"]:
-        with st.expander(
-            f"📄 {doc.metadata.get('filename')} "
-            f"(Page {doc.metadata.get('page', 'N/A')})"
-        ):
-            st.write(doc.page_content)
+    for source in result["sources"]:
+        st.write(f"📄 {source}")
 
     st.divider()
 
@@ -66,18 +73,18 @@ if submit:
     col1, col2, col3 = st.columns(3)
 
     col1.metric(
-        "Response Time",
-        f"{end-start:.2f}s"
+        "Latency",
+        f'{result["latency"]:.2f}s'
     )
 
     col2.metric(
-        "Relevant Docs",
-        len(result["filtered_documents"])
+        "Grounded",
+        "Yes" if result["grounded"] else "No"
     )
 
     col3.metric(
-        "Grounded",
-        "✅" if result["grounded"] else "❌"
+        "Rewrites",
+        result["rewrite_count"]
     )
 
     st.divider()
@@ -86,10 +93,8 @@ if submit:
     st.subheader("⚡ Execution Trace")
 
     for step in result["execution_trace"]:
-        st.success(step)
 
-    if not result["grounded"]:
-        st.warning(result["grounding_reason"])
+        st.success(step)
 with st.sidebar:
 
     st.header("⚙️ Corrective RAG")

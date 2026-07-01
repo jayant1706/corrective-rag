@@ -27,14 +27,15 @@ def ask_question(question: str):
     end = time.perf_counter()
 
     return {
-        "answer": result["generation"],
-        "grounded": result["grounded"],
-        "rewrite_count": result["rewrite_count"],
-        "latency": round(end - start, 2),
-        "sources": list(
+    "answer": result["generation"],
+    "grounded": result["grounded"],
+    "rewrite_count": result["rewrite_count"],
+    "latency": round(end - start, 2),
+    "sources": list(
             {
                 doc.metadata.get("filename", "Unknown Source")
                 for doc in result["filtered_documents"]
             }
-        ),
+    ),
+    "execution_trace": result.get("execution_trace", [])
     }

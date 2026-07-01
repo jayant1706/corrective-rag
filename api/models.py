@@ -11,3 +11,4 @@ class ChatResponse(BaseModel):
     rewrite_count: int
     latency: float
     sources: list[str]
+    execution_trace: list[str]
