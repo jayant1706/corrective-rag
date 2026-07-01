@@ -1,6 +1,34 @@
-venv/
-.env
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+clean-venv/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# ChromaDB
 chroma_db/
-*.pyc
+
+# Streamlit cache
 .streamlit/
+
+# Python cache
+.pytest_cache/
+
+# Docker
+*.tar
