@@ -1,46 +1,55 @@
+import sys
 import time
-
-from graph.graph import graph
+from api.service import ask_question
 from utils.logger import logger
 
-logger.info(
-    "Corrective RAG started"
-)
+# Ensure clean UTF-8 console output
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+logger.info("Corrective RAG CLI Interface Initialized")
+print("=" * 60)
+print("🛡️  CORRECTIVE RAG (CRAG) CLI ASSISTANT")
+print("Type your question below, or type 'exit' to quit.")
+print("=" * 60)
 
 while True:
+    try:
+        question = input("\nAsk: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        print("\nExiting...")
+        break
 
-    question = input("\nAsk: ")
-    logger.info(
-        f"QUESTION | {question}"
-    )
-
+    if not question:
+        continue
     if question.lower() == "exit":
         break
 
-    state = {
-    "question": question,
-    "rewritten_question": "",
-    "documents": [],
-    "grounded":False,
-    "generation_attempts":0,  
-    "filtered_documents": [],
-    "web_context": "",
-    "generation": "",
-    "rewrite_count": 0,
-    }
+    logger.info(f"QUESTION | {question}")
+    print("\n⏳ Processing through CRAG agentic graph...")
 
-    start = time.perf_counter()
+    result = ask_question(question)
 
-    result = graph.invoke(state)
-    end = time.perf_counter()
-    logger.info(
-        f"LATENCY | {end-start:.2f} sec"
-    )
-    print("\nAnswer\n")
-    print(result["generation"])
+    print("\n" + "=" * 60)
+    print("💬 ANSWER:")
+    print("=" * 60)
+    print(result["answer"])
 
-    print(f"\nResponse Time : {end-start:.2f} sec")
+    print("\n" + "-" * 60)
+    print("📊 EXECUTION TELEMETRY & DIAGNOSTICS:")
+    print("-" * 60)
+    print(f"⏱️  Latency            : {result['latency']:.2f}s")
+    print(f"🛡️  Grounded in Facts  : {'YES' if result['grounded'] else 'NO (Corrected/Fallback)'} (Confidence: {int(result['confidence']*100)}%)")
+    print(f"🧭 Execution Route     : {result['active_route']}")
+    print(f"✍️  Query Rewrites     : {result['rewrite_count']}")
+    print(f"🔄 Gen Attempts       : {result['generation_attempts']}")
 
-logger.info(
-    "REQUEST COMPLETED"
-)
+    if result.get("sources"):
+        print(f"📚 Sources Used       : {', '.join(result['sources'])}")
+
+    if result.get("step_history"):
+        print(f"⚡ Pathway            : {' -> '.join(result['step_history'])}")
+
+    print("=" * 60)
+
+logger.info("Corrective RAG CLI session ended")

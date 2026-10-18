@@ -1,4 +1,4 @@
-# 🤖 Corrective RAG Assistant
+# 🛡️ Corrective RAG (CRAG) Studio with LangGraph
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.138-green.svg)](https://fastapi.tiangolo.com/)
@@ -7,117 +7,91 @@
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg)](https://www.docker.com/)
 [![Render](https://img.shields.io/badge/Backend-Render-46E3B7.svg)](https://render.com/)
 
-An intelligent **Corrective Retrieval-Augmented Generation (CRAG)** system that enhances traditional RAG pipelines by evaluating retrieved documents, rewriting ambiguous queries, searching the web when necessary, and verifying generated responses before returning them to the user.
+An advanced, production-grade **Corrective Retrieval-Augmented Generation (CRAG)** studio built using **LangGraph**, **LangChain**, **ChromaDB**, **Groq LLMs**, **FastAPI**, and **Streamlit**.
 
-The project is built using **LangGraph**, **FastAPI**, **Streamlit**, **ChromaDB**, **Groq LLM**, and **Tavily Search**.
+The application eliminates hallucinations and poor retrievals by:
+1. **Grading retrieved documents** for semantic relevance with structured explanations and scores.
+2. **Rewriting ambiguous queries** automatically when local context is insufficient.
+3. **Triggering live Tavily web search fallback** if knowledge is absent from local vector stores.
+4. **Auditing generated answers for hallucinations** against the provided context.
+5. **Actively self-correcting** with critique feedback to ensure 100% grounded facts before returning verified answers.
 
 ---
 
 # 🌐 Live Demo
 
 ## 🖥️ Frontend
-
 https://corrective-rag-hzkxrqzsxzmkbntenmk3ai.streamlit.app/
 
 ## 🚀 Backend API
-
 https://corrective-rag-5x8d.onrender.com
 
 ## 📖 Swagger Documentation
-
 https://corrective-rag-5x8d.onrender.com/docs
 
 ---
 
-# ✨ Features
+## 🚀 Key Features
 
-- 🔍 Retrieval-Augmented Generation (RAG)
-- 🔄 Intelligent Query Rewriting
-- 📄 LLM-based Document Relevance Grading
-- 🌐 Automatic Web Search Fallback using Tavily
-- 🧠 Hallucination Detection
-- 🔁 Answer Regeneration when responses are not grounded
-- ⚡ Agentic Workflow using LangGraph
-- 📚 ChromaDB Vector Database
-- 🚀 FastAPI REST Backend
-- 🖥️ Streamlit Frontend
-- 🐳 Dockerized Deployment
-- ☁️ Cloud Deployment on Render & Streamlit Community Cloud
+- **🛡️ Full Agentic CRAG Workflow**: Closed-loop state machine built with **LangGraph** coordinating retrieval, grading, query optimization, web search, answer generation, and hallucination evaluation.
+- **📊 Explainable Document Grading**: Structured Pydantic scoring (1–10) with inline reasoning per chunk.
+- **✍️ Multi-Step Query Optimization**: Analyzes user intent, removes ambiguous phrasing, and rewrites queries for superior vector matching.
+- **🌐 Live Web Search Fallback**: Automatically connects to Tavily to retrieve external web facts when local documents lack coverage.
+- **🔍 Hallucination Detection & Self-Correction**: Flags unsupported statements and regenerates answers with critique guidance.
+- **🗂️ Interactive Knowledge Base & Drag-and-Drop Ingestion**:
+  - Live upload of **PDF**, **Markdown (.md)**, and **Text (.txt)** documents directly through the UI or REST API.
+  - Automatic chunking (`RecursiveCharacterTextSplitter`) and vector embedding with `sentence-transformers/all-MiniLM-L6-v2`.
+  - Real-time chunk statistics and document catalog.
+- **🎨 Glassmorphic Cyberpunk Dark UI**: Modern Streamlit interface with Google Fonts (`Outfit`, `Inter`), KPI performance cards, dynamic execution pathway visualizer, source card inspectors, and Mermaid architecture diagrams.
+- **⚡ Dual Execution Modes**:
+  - **Direct In-Process Mode**: Run directly without external services.
+  - **FastAPI REST Backend Mode**: Microservice architecture with `/chat`, `/upload`, `/documents`, and `/health` endpoints.
+- **🧠 Dynamic Model Switcher**: Supports high-performance Groq models including `openai/gpt-oss-120b`, `qwen/qwen3.8-27b`, and `openai/gpt-oss-20b`.
 
 ---
 
-# 🏗️ System Architecture
+# 🏗️ Architecture
 
-```text
-                    User
-                      │
-                      ▼
-            Streamlit Frontend
-                      │
-            POST Request (/chat)
-                      │
-                      ▼
-             FastAPI Backend
-                      │
-                      ▼
-             LangGraph Workflow
-                      │
-     ┌────────────────┼────────────────┐
-     │                │                │
-     ▼                ▼                ▼
-Retrieve Docs   Rewrite Query   Tavily Search
-     │                │
-     └──────────┬─────┘
-                ▼
-      Document Relevance Grading
-                │
-         Relevant Documents
-                │
-                ▼
-        Answer Generation (Groq)
-                │
-                ▼
-     Hallucination Detection
-         │              │
-         │              │
-     Grounded      Not Grounded
-         │              │
-         ▼              ▼
- Return Response   Regenerate Answer
 ```
-
----
-
-# 🛠️ Tech Stack
-
-### Backend
-
-- FastAPI
-- LangGraph
-- LangChain
-- Groq API
-
-### Frontend
-
-- Streamlit
-
-### Vector Database
-
-- ChromaDB
-
-### Embeddings
-
-- HuggingFace Sentence Transformers
-
-### Web Search
-
-- Tavily Search API
-
-### Deployment
-
-- Docker
-- Render
-- Streamlit Community Cloud
+                    User Question
+                          │
+                          ▼
+                   Retrieve Documents (ChromaDB)
+                          │
+                          ▼
+                  Grade Retrieved Docs (1-10)
+                          │
+          ┌───────────────┴───────────────┐
+          │                               │
+     Relevant (>= Cutoff)          Not Relevant (< Cutoff)
+          │                               │
+          │                        Rewrite Query (Attempt < Max)
+          │                               │
+          │                               ▼
+          │                        Retrieve Again
+          │                               │
+          │                       Max Retry Exceeded?
+          │                          │          │
+          │                         No         Yes
+          │                          │          │
+          │                          │          ▼
+          │                          │   Live Web Search (Tavily)
+          │                          │          │
+          └──────────────────────────┼──────────┘
+                                     ▼
+                            Generate Answer
+                                     │
+                                     ▼
+                        Hallucination Grounding Audit
+                                     │
+          ┌──────────────────────────┴──────────────────────────┐
+          │                                                     │
+       Grounded                                            Not Grounded
+          │                                                     │
+          ▼                                            Regenerate with Critique
+    Return Verified Answer                                      │
+                                                       (or Web Search fallback)
+```
 
 ---
 
