@@ -21,7 +21,7 @@ The application eliminates hallucinations and poor retrievals by:
 # 🌐 Live Demo
 
 ## 🖥️ Frontend
-https://corrective-rag-hzkxrqzsxzmkbntenmk3ai.streamlit.app/
+[https://corrective-rag-hzkxrqzsxzmkbntenmk3ai.streamlit.app/](https://corrective-rag-007.streamlit.app/)
 
 ## 🚀 Backend API
 https://corrective-rag-5x8d.onrender.com
